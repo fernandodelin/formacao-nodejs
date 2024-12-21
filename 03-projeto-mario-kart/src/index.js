@@ -119,25 +119,38 @@ async function playRaceEngine(character1, character2) {
       );
 
       if (powerResult1 > powerResult2 && character2.PONTOS > 0) {
+       // Sortear aleatoriamente entre casco (-1) e bomba (-2)
+        const isBomba = Math.random() < 0.5;
+        const pontosPerdidos = isBomba ? 2 : 1;
+        const itemUsado = isBomba ? "bomba 💣" : "casco 🐢";
+        
+        // Aplicar a perda de pontos ao perdedor
+        character2.PONTOS -= pontosPerdidos;
+        
+        // Adicionar 1 ponto de turbo ao vencedor
+        character1.PONTOS++;
+
         console.log(
-          `${character1.NOME} venceu o confronto! ${character2.NOME} perdeu 1 ponto 🐢`
+            `${character1.NOME} venceu o confronto usando ${itemUsado}! ${character2.NOME} perdeu ${pontosPerdidos} ${pontosPerdidos === 1 ? 'ponto' : 'pontos'} | TURBO ATIVADO! 🚀`
         );
-        character2.PONTOS--;
       }
 
       if (powerResult2 > powerResult1 && character1.PONTOS > 0) {
-        console.log(
-          `${character2.NOME} venceu o confronto! ${character1.NOME} perdeu 1 ponto 🐢`
-        );
-        character1.PONTOS--;
-      }
+        // Sortear aleatoriamente entre casco (-1) e bomba (-2)
+        const isBomba = Math.random() < 0.5;
+        const pontosPerdidos = isBomba ? 2 : 1;
+        const itemUsado = isBomba ? "bomba 💣" : "casco 🐢";
+        
+        // Aplicar a perda de pontos ao perdedor
+        character1.PONTOS -= pontosPerdidos;
+        
+        // Adicionar 1 ponto de turbo ao vencedor
+        character2.PONTOS++;
 
-      console.log(
-        powerResult2 === powerResult1
-          ? "Confronto empatado! Nenhum ponto foi perdido"
-          : ""
-      );
-    }
+        console.log(
+            `${character2.NOME} venceu o confronto usando ${itemUsado}! ${character1.NOME} perdeu ${pontosPerdidos} ${pontosPerdidos === 1 ? 'ponto' : 'pontos'} | TURBO ATIVADO! 🚀`
+        );
+      }
 
     // verificando o vencedor
     if (totalTestSkill1 > totalTestSkill2) {
@@ -150,6 +163,7 @@ async function playRaceEngine(character1, character2) {
 
     console.log("-----------------------------");
   }
+ }
 }
 
 async function declareWinner(character1, character2) {
